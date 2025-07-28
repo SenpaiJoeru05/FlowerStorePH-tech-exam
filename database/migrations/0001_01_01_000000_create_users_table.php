@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email_address')->unique();
             $table->string('mobile_number');
             $table->string('address');
-            $table->boolean('status')->default(true);
+            $table->enum('status', ['active', 'inactive', 'banned', 'pending'])->default('active');
             $table->timestamps();
         });
     }
