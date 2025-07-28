@@ -1,5 +1,6 @@
 <?php
-// filepath: d:\My Works\flowerstoreph-tech-exam\routes\api.php
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 

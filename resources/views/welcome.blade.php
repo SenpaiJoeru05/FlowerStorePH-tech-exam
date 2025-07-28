@@ -15,7 +15,8 @@
     </head>
     <body>
       <div id="app">
-        <example-component></example-component>
+        <product-list></product-list>
+        <order-list></order-list>
       </div>
       
     </body>
