@@ -17,13 +17,17 @@
         </tr>
       </tbody>
     </table>
-    <div>
-      <strong>Total:</strong> {{ totalPrice }}
+
+    <div class="summary">
+      <h3>Summary</h3>
+      <p>Total Price: {{ totalPrice.toFixed(2) }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from '../axios';
+
 export default {
   name: 'OrderList',
   data() {
@@ -33,15 +37,36 @@ export default {
   },
   computed: {
     totalPrice() {
-      return this.orders.reduce((sum, order) => sum + Number(order.price), 0);
+      return this.orders.reduce((sum, o) => sum + Number(o.price), 0);
     },
   },
   mounted() {
-    fetch('/api/orders')
-      .then(res => res.json())
-      .then(data => {
-        this.orders = data;
-      });
+    axios.get('/orders').then(res => {
+      this.orders = res.data;
+    });
   },
 };
 </script>
+
+<style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+th {
+  background-color: #f8f9fa;
+}
+.summary {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  text-align: center;
+}
+</style>
