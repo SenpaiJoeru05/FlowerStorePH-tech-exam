@@ -134,7 +134,7 @@ The UI is split into two main tabs:
 | email_address | string    | User's email               |
 | mobile_number | string    | User's mobile number       |
 | address       | string    | User's address             |
-| status        | string    | active/inactive            |
+| status        | enum    | active/inactive/banned/pending          |
 | created_at    | datetime  | Creation timestamp         |
 | updated_at    | datetime  | Update timestamp           |
 
@@ -146,7 +146,7 @@ The UI is split into two main tabs:
 | product_description| string    | Description                |
 | quantity           | int       | Stock quantity             |
 | price              | decimal   | Product price              |
-| status             | string    | enabled/disabled           |
+| status             | enum    | enabled/disabled           |
 | created_at         | datetime  | Creation timestamp         |
 | updated_at         | datetime  | Update timestamp           |
 
