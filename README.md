@@ -164,7 +164,8 @@ The UI is split into two main tabs:
 
 ## Screenshots
 
-*(Add screenshots of your UI here if possible, e.g. Products tab, Orders tab, modals, summary)*
+![Products Tab](Screenshot1.png)
+![Orders Tab](Screenshot2.png)
 
 ---
 
