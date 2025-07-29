@@ -2,62 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller; // ✅ this is needed
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of all products.
-     */
+    // GET /api/products
     public function index()
     {
-        return Product::select('id', 'product_name', 'product_description', 'price', 'status')->get();
+        return Product::all();
     }
 
-    /**
-     * Store a newly created product in storage.
-     */
+    // GET /api/products/{id}
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json($product);
+    }
+
+    // POST /api/products
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'product_name' => 'required|string|max:255',
-            'product_description' => 'nullable|string',
-            'quantity' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
+            'product_description' => 'required|string',
+            'quantity' => 'required|integer',
+            'price' => 'required|numeric',
+            'status' => 'required|in:enabled,disabled',
         ]);
 
-        $product = Product::create($validated);
+        $product = Product::create($request->all());
 
         return response()->json($product, 201);
     }
 
-    /**
-     * Update the specified product in storage.
-     */
-    public function update(Request $request, Product $product)
+    // PUT /api/products/{id}
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'product_name' => 'required|string|max:255',
-            'product_description' => 'nullable|string',
-            'quantity' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
+        $product = Product::findOrFail($id);
+
+        $request->validate([
+            'product_name' => 'sometimes|string|max:255',
+            'product_description' => 'sometimes|string',
+            'quantity' => 'sometimes|integer',
+            'price' => 'sometimes|numeric',
+            'status' => 'sometimes|in:enabled,disabled',
         ]);
 
-        $product->update($validated);
+        $product->update($request->all());
 
-        return response()->json(['message' => 'Product updated successfully.']);
+        return response()->json($product);
     }
 
-    /**
-     * Toggle the product's status (enabled/disabled).
-     */
-    public function toggleStatus(Product $product)
+    // DELETE /api/products/{id}
+    public function destroy($id)
     {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return response()->json(null, 204);
+    }
+
+    // PATCH /api/products/{id}/toggle-status
+    public function toggleStatus($id)
+    {
+        $product = Product::findOrFail($id);
+
         $product->status = $product->status === 'enabled' ? 'disabled' : 'enabled';
         $product->save();
 
-        return response()->json(['message' => 'Product status updated.', 'status' => $product->status]);
+        return response()->json([
+            'message' => 'Product status updated successfully.',
+            'product' => $product
+        ]);
     }
 }

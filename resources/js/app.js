@@ -9,7 +9,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   { path: '/products', component: ProductList },
   { path: '/orders', component: OrderList },
-  { path: '/:pathMatch(.*)*', redirect: '/products' }, // fallback
+  { path: '/:pathMatch(.*)*', redirect: '/products' },
 ];
 
 const router = createRouter({
@@ -17,6 +17,6 @@ const router = createRouter({
   routes,
 });
 
-const app = createApp(App); // ✅ mount App.vue not Tabs.vue
+const app = createApp(App);
 app.use(router);
 app.mount('#app');

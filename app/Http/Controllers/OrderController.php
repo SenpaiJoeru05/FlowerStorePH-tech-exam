@@ -3,22 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    // GET /api/orders
     public function index()
     {
-        return Order::with(['product:id,product_name', 'user:id,first_name,last_name'])
-            ->select('id', 'product_id', 'user_id', 'price')
-            ->get()
-            ->map(function ($order) {
-                return [
-                    'id' => $order->id,
-                    'product_name' => $order->product->product_name,
-                    'user_name' => $order->user->first_name . ' ' . $order->user->last_name,
-                    'price' => $order->price,
-                ];
-            });
+        $orders = Order::with('product:id,id,product_name,price')->get();
+
+        $formatted = $orders->map(function ($order) {
+            return [
+                'order_id' => $order->id,
+                'product_name' => $order->product->product_name ?? 'N/A',
+                'price' => $order->price,
+            ];
+        });
+
+        return response()->json($formatted);
+    }
+
+    // POST /api/orders
+    public function store(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        $order = Order::create([
+            'user_id' => $request->user_id,
+            'product_id' => $request->product_id,
+            'price' => $product->price,
+        ]);
+
+        return response()->json($order, 201);
+    }
+
+    // DELETE /api/orders/{id}
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->delete();
+
+        return response()->json(null, 204);
+    }
+
+    // GET /api/orders/summary
+    public function summary()
+    {
+        $total = Order::sum('price');
+
+        return response()->json([
+            'total_price' => $total
+        ]);
     }
 }
