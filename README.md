@@ -172,7 +172,7 @@ The UI is split into two main tabs:
 ## Author
 
 **Joel Rayton**  
-Pasay, Philippines
+Philippines
 
 ---
 
