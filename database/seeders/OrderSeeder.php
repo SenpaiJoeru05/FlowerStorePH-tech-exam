@@ -14,16 +14,23 @@ class OrderSeeder extends Seeder
     {
         Order::insert([
             [
-                'product_id' => 1,
-                'user_id' => 1,
-                'price' => 1200.00,
+                'product_id' => 1, 
+                'user_id' => 1,    
+                'price' => 85000.00,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'product_id' => 2,
-                'user_id' => 2,
-                'price' => 950.00,
+                'product_id' => 3, 
+                'user_id' => 2,    
+                'price' => 75000.00,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => 2, 
+                'user_id' => 3,   
+                'price' => 65000.00,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

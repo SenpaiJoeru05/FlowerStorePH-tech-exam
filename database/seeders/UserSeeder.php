@@ -14,11 +14,11 @@ class UserSeeder extends Seeder
     {
         User::insert([
             [
-                'first_name' => 'Juan',
-                'last_name' => 'Dela Cruz',
-                'email_address' => 'juan@example.com',
-                'mobile_number' => '09171234567',
-                'address' => 'Manila, Philippines',
+                'first_name' => 'Joel',
+                'last_name' => 'Rayton',
+                'email_address' => 'joel.rayton@example.com',
+                'mobile_number' => '09170000001',
+                'address' => 'Pasay, Philippines',
                 'status' => 'active',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -26,9 +26,19 @@ class UserSeeder extends Seeder
             [
                 'first_name' => 'Maria',
                 'last_name' => 'Santos',
-                'email_address' => 'maria@example.com',
+                'email_address' => 'maria.santos@example.com',
                 'mobile_number' => '09181234567',
                 'address' => 'Quezon City, Philippines',
+                'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'first_name' => 'Juan',
+                'last_name' => 'Dela Cruz',
+                'email_address' => 'juan.delacruz@example.com',
+                'mobile_number' => '09171234567',
+                'address' => 'Manila, Philippines',
                 'status' => 'active',
                 'created_at' => now(),
                 'updated_at' => now(),
