@@ -1,5 +1,4 @@
 <template>
-  <!-- Header Bar -->
     <div class="header-bar">
       <h1>FLOWERSTORE.PH-TECHNICAL EXAM</h1>
       <p>by JOEL RAYTON</p>
@@ -28,7 +27,6 @@ body {
   padding: 0;
 }
 
-/* Centered container with padding */
 .app-container {
   max-width: 1200px;
   margin: 40px auto;
