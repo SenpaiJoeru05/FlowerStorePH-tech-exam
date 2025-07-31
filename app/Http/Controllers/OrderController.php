@@ -46,12 +46,20 @@ class OrderController extends Controller
     // DELETE /api/orders/{id}
     public function destroy($id)
     {
-        $product = Product::find($id);
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+        $order = Order::find($id);
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
         }
-        $product->delete();
-        return response()->json(['message' => 'Product deleted successfully']);
+
+        // Restore product quantity
+        $product = Product::find($order->product_id);
+        if ($product) {
+            $product->quantity += 1; // or $order->quantity if you support multiple quantities
+            $product->save();
+        }
+
+        $order->delete();
+        return response()->json(['message' => 'Order deleted successfully']);
     }
 
     // GET /api/orders/summary

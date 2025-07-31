@@ -241,7 +241,7 @@ export default {
     },
     fetchProducts() {
       axios.get('/products').then(res => {
-        this.products = res.data;
+        this.products = res.data.reverse();
       });
     },
     submitProduct() {
@@ -271,7 +271,7 @@ export default {
     },
     fetchOrders() {
       axios.get('/orders').then(res => {
-        this.orders = res.data;
+        this.orders = res.data.reverse();
       });
     },
     submitOrder() {
